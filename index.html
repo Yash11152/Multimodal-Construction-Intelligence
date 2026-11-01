@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Construction Intelligence Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">Construction Intelligence</div>
+  <div class="key">
+    <input id="apiKey" type="password" placeholder="Gemini API key (empty = demo mode)" aria-label="Gemini API key">
+    <input id="model" value="gemini-2.5-flash" aria-label="Model name">
+    <span id="mode" class="badge">Demo mode</span>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>Check the site before it checks you.</h1>
+  <p>Upload a photo to audit PPE, diagnose a crack, price the build in rupees, and plan the day around the weather.</p>
+</section>
+
+<nav class="tabs" role="tablist">
+  <button class="tab active" data-tab="ppe">Safety &amp; PPE</button>
+  <button class="tab" data-tab="crack">Crack diagnostics</button>
+  <button class="tab" data-tab="plan">Planning &amp; valuation</button>
+  <button class="tab" data-tab="assist">Site assistant</button>
+</nav>
+
+<main>
+<section id="ppe" class="panel active">
+  <input type="file" id="ppeFile" accept="image/jpeg,image/png">
+  <img id="ppePreview" class="preview" alt="" hidden>
+  <button id="ppeRun" class="btn">Run PPE audit</button>
+  <div id="ppeOut"></div>
+</section>
+
+<section id="crack" class="panel">
+  <input type="file" id="crackFile" accept="image/jpeg,image/png">
+  <img id="crackPreview" class="preview" alt="" hidden>
+  <button id="crackRun" class="btn">Diagnose crack</button>
+  <div id="crackOut"></div>
+</section>
+
+<section id="plan" class="panel">
+  <div class="form">
+    <label>Structure type
+      <select id="stype"><option>Residential Villa</option><option>Apartment Building</option><option>Commercial Complex</option><option>Industrial Shed</option></select></label>
+    <label>Location tier
+      <select id="tier"><option>Tier 1</option><option selected>Tier 2</option><option>Tier 3</option></select></label>
+    <label>Built-up area (sqft)
+      <input type="number" id="sqft" value="2000" min="200" step="100"></label>
+    <label>Completion: <b id="pctLabel">40%</b>
+      <input type="range" id="pct" min="0" max="100" value="40"></label>
+  </div>
+  <div id="planOut" class="cards"></div>
+  <div class="bar"><div id="bar"></div></div>
+  <p class="note">Estimates use rule-of-thumb rates, not a quantity survey.</p>
+  <button id="renderBtn" class="btn">Generate concept rendering</button>
+  <img id="render" class="preview" alt="Concept rendering" hidden>
+</section>
+
+<section id="assist" class="panel">
+  <label>Today's weather
+    <select id="weather"><option>Normal</option><option>High Wind</option><option>Heavy Rain</option><option>Extreme Heat</option></select></label>
+  <div id="alert" class="alert ok"></div>
+  <div id="chat" class="chat" aria-live="polite"></div>
+  <div class="chatbar"><input id="chatIn" placeholder="Ask a construction question"><button id="chatBtn" class="btn">Send</button></div>
+</section>
+</main>
+<footer>Runs entirely in your browser. Your API key is never stored.</footer>
+<script src="script.js"></script>
+</body>
+</html>
